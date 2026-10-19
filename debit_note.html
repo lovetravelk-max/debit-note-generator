@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  body { font-family: Arial, "Microsoft YaHei", sans-serif; margin: 20px; color: #333; }
+  .header { border-bottom: 3px solid #1a3c6e; padding-bottom: 10px; margin-bottom: 20px; }
+  .logo { height: 80px; float: left; margin-right: 20px; }
+  .company-name { font-size: 20px; font-weight: bold; color: #1a3c6e; }
+  .company-detail { font-size: 12px; color: #666; margin-top: 5px; }
+  .doc-title { font-size: 28px; font-weight: bold; text-align: center; margin: 20px 0; color: #1a3c6e; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+  td { border: 1px solid #ccc; padding: 8px 12px; font-size: 13px; }
+  td.label { background: #f0f4f8; font-weight: bold; width: 30%; }
+  .section-title { font-size: 16px; font-weight: bold; color: #1a3c6e; margin: 20px 0 10px; }
+  .amount-row { font-weight: bold; }
+  .payment-block { background: #f9f9f9; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+  .signature { margin-top: 60px; text-align: right; font-size: 13px; }
+  .clear { clear: both; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <img class="logo" src="data:image/png;base64,{{ logo_base64 }}" onerror="this.style.display='none'">
+  <div class="company-name">FU HOI INSURANCE MANAGEMENT LIMITED</div>
+  <div class="company-detail">
+    Room 1229, 12/F., Beverley Commercial Centre, 87-105 Chatham Road, Tsim Sha Tsui, Kowloon<br>
+    Email: info@fhi.com.hk | Tel: +852 5622 2792
+  </div>
+  <div class="clear"></div>
+</div>
+
+<div class="doc-title">{{ doc_type }}</div>
+
+<table>
+  <tr><td class="label">Insured Name</td><td>{{ insured_name }}</td></tr>
+  <tr><td class="label">Insurer Name</td><td>{{ insurer_name }}</td></tr>
+  <tr><td class="label">Policy / Quotation No.</td><td>{{ policy_number }}</td></tr>
+  <tr><td class="label">Insurance Class</td><td>{{ insurance_class }}</td></tr>
+  <tr><td class="label">Policy Period</td><td>{{ policy_effective_date }} to {{ policy_expiry_date }}</td></tr>
+  <tr><td class="label">Debit Note Date</td><td>{{ debit_note_date }}</td></tr>
+</table>
+
+<div class="section-title">PREMIUM SUMMARY (HKD)</div>
+<table>
+  <tr><td class="label">Premium</td><td>HKD {{ premium }}</td></tr>
+  <tr><td class="label">Levy</td><td>HKD {{ levy }}</td></tr>
+  <tr><td class="label amount-row">Total Amount</td><td class="amount-row">HKD {{ total_amount }}</td></tr>
+  <tr><td class="label">Commission</td><td>HKD {{ commission }}</td></tr>
+</table>
+
+{% if doc_type == "Debit Note" %}
+<div class="section-title">PREMIUM ARRANGEMENT OPTIONS</div>
+<div class="payment-block">
+  <p><strong>1) CHEQUE</strong><br>
+  Payable to: FU HOI INSURANCE MANAGEMENT LIMITED<br>
+  Mail to: Room 1229, 12/F., Beverley Commercial Centre, 87-105 Chatham Road, Tsim Sha Tsui.</p>
+  <p><strong>2) INTERNET BANKING (OCBC Wing Hang Bank - 035)</strong><br>
+  A/C Name: FU HOI INSURANCE MANAGEMENT LIMITED<br>
+  A/C No: 802-155874-831<br>
+  *Please email remittance slip to info@fhi.com.hk</p>
+  <p><strong>3) FPS</strong><br>
+  Mobile Number: +852 5622 2792</p>
+  <p><strong>Billing Date:</strong> {{ billing_date }}</p>
+</div>
+{% endif %}
+
+{% if doc_type == "Receipt" %}
+<div class="section-title">RECEIPT DETAILS</div>
+<table>
+  <tr><td class="label">收款日期 (Date of Receipt)</td><td>{{ receipt_date }}</td></tr>
+  <tr><td class="label">收款方法 (Method of Payment)</td><td>{{ receipt_method }}</td></tr>
+</table>
+{% endif %}
+
+<div class="signature">
+  <p>Authorized Signature</p>
+  <br><br>
+  _________________________
+</div>
+
+</body>
+</html>
